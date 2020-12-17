@@ -38,7 +38,7 @@ BUET CSE'17 """
         print('Some error occured')
 
 def main():
-    sendEmail()
+    sendEmail('kawshik.tiwary@gmail.com')
 
 if __name__ == "__main__":
     main()
