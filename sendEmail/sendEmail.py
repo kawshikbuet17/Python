@@ -1,21 +1,44 @@
-# Python code to illustrate Sending mail from  
-# your Gmail account  
+# Gmail > Settings > Security > App Access ON
+
 import smtplib 
-  
-# creates SMTP session 
-s = smtplib.SMTP('smtp.gmail.com', 587) 
-  
-# start TLS for security 
-s.starttls() 
-  
-# Authentication 
-s.login("kawshik.tiwary@gmail.com", "") 
-  
-# message to be sent 
-message = "Message_you_need_to_send"
-  
-# sending the mail 
-s.sendmail("kawshik.tiwary@gmail.com", "kawshik.kumar.paul@gmail.com", message) 
-  
-# terminating the session 
-s.quit() 
+import getpass
+
+def sendEmail(sender = "kawshik.kumar.paul@gmail.com"):
+    print('Sender Email : ', sender)
+    receiver = input('Receiver Email : ')
+
+    subject = input('Subject : ')
+    receiver_name = input('Dear ? ')
+    content = input('Email Content : ')
+    message_content = """\
+Subject: {}
+
+Dear {},
+Hope you are quite well by the grace of Almighty.
+{}
+
+Regards
+Kawshik Kumar Paul
+BUET CSE'17 """
+    message_content.format(subject, receiver_name, content)
+
+    print('\n-----Sending this Email-----')
+    print(message_content.format(subject, receiver_name, content))
+    print('-----Sending this Email-----\n')
+
+    password = getpass.getpass()
+    try:
+        s = smtplib.SMTP('smtp.gmail.com', 587) 
+        s.starttls() 
+        s.login(sender, password) 
+        s.sendmail(sender, receiver, message_content.format(subject, receiver_name, content)) 
+        s.quit() 
+        print('Email has been sent to '+ receiver + ' successfully.')
+    except:
+        print('Some error occured')
+
+def main():
+    sendEmail()
+
+if __name__ == "__main__":
+    main()
