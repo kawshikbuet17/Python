@@ -3,7 +3,7 @@
 import cv2
 import numpy as np
 
-jc = cv2.imread("rabid.jpg")
+jc = cv2.imread("givenPic.jpg")
 
 scale_percent = 0.60
 
