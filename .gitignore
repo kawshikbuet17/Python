@@ -3,4 +3,4 @@ venv/
 keylogger/log.txt
 *.png
 *.jpg
-settings.json
+.vscode/
