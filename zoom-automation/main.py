@@ -1,9 +1,3 @@
-import time
-from datetime import datetime
-from pynput.keyboard import Controller, Key
-from data import lst
-import webbrowser
-
 print("""
     
  __    __                                                                  .__  .__ 
@@ -15,40 +9,82 @@ print("""
 
     """)
 
+import time
+from datetime import datetime
+from pynput.keyboard import Controller, Key
+from data import lst
+import webbrowser
+
+
+def printCurrentTime() :
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    print("Current Time = ", current_time)
 
 keyboard = Controller()
 
 isStarted = False
 
-for i in lst:
-    currentMeeting = i[3]
-    currentStart = i[1]
-    currentEnd = i[2]
-    print()
-    print("Current Meeting : " + currentMeeting)
-    print("Current Meeting Start : " + currentStart)
-    print("Current Meeting End : " + currentEnd)
-    
-    while True:
-        
-        if isStarted == False:
-            if datetime.now().hour >= int(i[1].split(':')[0]) and datetime.now().minute >= int(i[1].split(':')[1]):
-                if datetime.now().hour <= int(i[2].split(':')[0]) and datetime.now().minute <= int(i[2].split(':')[1]):
-                    webbrowser.open(i[0])
-                    isStarted = True
-                    print("Meeting Started ... (" + i[3] +")\n")  
-                    print()
+while True:
+    for i in lst:
+        currentMeeting = i[3]
+        currentStart = i[1]
+        currentEnd = i[2]
+
+        while True:
+            if isStarted == False:
+                if int(datetime.now().hour) >= int(i[1].split(':')[0]) and int(datetime.now().minute) >= int(i[1].split(':')[1]):
+                    if int(datetime.now().hour) <= int(i[2].split(':')[0]) and int(datetime.now().minute) < int(i[2].split(':')[1]):
+                        webbrowser.open(i[0])
+                        isStarted = True
+                        print("Current Meeting : " + currentMeeting)
+                        print("Current Meeting Start : " + currentStart)
+                        print("Current Meeting End : " + currentEnd)
+                        print("Meeting Started ... (" + i[3] +")\n")  
+                        print()
+                    else:
+                        break
                 else:
                     break
-            else:
-                break
 
-        elif isStarted == True:
-            if datetime.now().hour >= int(i[2].split(':')[0]) and datetime.now().minute >= int(i[2].split(':')[1]):
-                keyboard.press('w')
-                time.sleep(1)
-                keyboard.press(Key.enter)
-                isStarted = False
-                print("Meeting Ended ...(" + i[3] +")\n")
-                print()
-                break
+            elif isStarted == True:
+                if int(datetime.now().hour) >= int(i[2].split(':')[0]) and int(datetime.now().minute) >= int(i[2].split(':')[1]):
+                    time.sleep(1)
+                    isStarted = False
+                    print("Meeting Ended ...(" + i[3] +")\n")
+                    print()
+                    break
+    time.sleep(30)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
