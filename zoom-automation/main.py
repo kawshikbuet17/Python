@@ -12,7 +12,7 @@ print("""
 import time
 from datetime import datetime
 from pynput.keyboard import Controller, Key
-from data import lst
+from data import lst, week_day
 import webbrowser
 
 
@@ -27,9 +27,13 @@ isStarted = False
 
 while True:
     for i in lst:
+        currentDay = week_day[datetime.today().weekday()]
         currentMeeting = i[3]
         currentStart = i[1]
         currentEnd = i[2]
+        
+        if currentDay != i[4] :
+            continue
 
         while True:
             if isStarted == False:
@@ -37,6 +41,7 @@ while True:
                     if int(datetime.now().hour) <= int(i[2].split(':')[0]) and int(datetime.now().minute) < int(i[2].split(':')[1]):
                         webbrowser.open(i[0])
                         isStarted = True
+                        print("Current Day : " + currentDay + "DAY")
                         print("Current Meeting : " + currentMeeting)
                         print("Current Meeting Start : " + currentStart)
                         print("Current Meeting End : " + currentEnd)

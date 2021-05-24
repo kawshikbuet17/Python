@@ -4,3 +4,5 @@ keylogger/log.txt
 *.png
 *.jpg
 .vscode/
+zoom-automation/__pycache__/
+kkpenv/
